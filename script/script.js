@@ -32,9 +32,8 @@ const startButton = document.querySelector('.start-button'),
     deadlineValue = document.querySelector('.deadline-value');
     
 
-
-function declOfNum(n, titles) {
-	return n + ' ' + titles[n % 10 === 1 && n % 100 !== 11 ?
+const declOfNum = (n, titles, from) => {
+	return n + ' ' + titles[from ? n % 10 === 1 && n % 100 !== 11 ? 1 : 2 : n % 10 === 1 && n % 100 !== 11 ?
 	    0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2];
 }
 
@@ -50,7 +49,7 @@ const renderTextContent = (total, site, maxDay, minDay) => {
 
     typeSite.textContent = site;
     totalPriceSum.textContent = total;
-    maxDeadline.textContent = declOfNum(maxDay, dayString);
+    maxDeadline.textContent = declOfNum(maxDay, dayString, true);
     rangeDeadline.min = minDay;
     rangeDeadline.max = maxDay;
     deadlineValue.textContent = declOfNum(rangeDeadline.value, dayString);
